@@ -10,6 +10,21 @@ require('dotenv').config();
 const app = express()
 connectDB()
 
+//middleware
+app.use(morgan('dev'))
+app.use(bodyParser.json({limit:'20mb'}))
+app.use(cors())
+
+// Route
+// #1
+//app.use('/api', require('./routes/api'))
+
+// #2
+ readdirSync('./routes')
+ .map((r)=> app.use('/api', require('./routes/'+r)))
+
+
+
 
 const port =process.env.PORT
 app.listen(port,()=>{
